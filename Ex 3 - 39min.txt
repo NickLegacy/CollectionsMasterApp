@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace CollectionsMasterConsoleUI
@@ -21,7 +21,7 @@ namespace CollectionsMasterConsoleUI
             //TODO: Print the first number of the array
             Console.WriteLine($"{numbers[0]}");
 
-            //TODO: Print the last number of the array
+            //TODO: Print the last number of the array            
             Console.WriteLine($"{numbers[numbers.Length - 1]}");
 
             Console.WriteLine("All Numbers Original");
@@ -45,6 +45,7 @@ namespace CollectionsMasterConsoleUI
 
             //TODO: Create a method that will set numbers that are a multiple of 3 to zero then print to the console all numbers
             Console.WriteLine("Multiple of three = 0: ");
+
             ThreeKiller(numbers);
 
             Console.WriteLine("-------------------");
@@ -67,7 +68,7 @@ namespace CollectionsMasterConsoleUI
             var numList = new List<int>();
 
             //TODO: Print the capacity of the list to the console
-            Console.WriteLine($"Capacity: {numList.Count}");
+            Console.WriteLine($"Capacity: {numList.Capacity}");
 
             //TODO: Populate the List with 50 random numbers between 0 and 50 you will need a method for this            
             Populater(numList);
@@ -79,7 +80,7 @@ namespace CollectionsMasterConsoleUI
 
             //TODO: Create a method that prints if a user number is present in the list
             //Remember: What if the user types "abc" accident your app should handle that!
-            
+            Console.WriteLine("What number will you search for in the number list?");
 
             int userNumber;
             bool isANumber;
@@ -88,14 +89,16 @@ namespace CollectionsMasterConsoleUI
             {
                 Console.WriteLine("What number will you search for in the number list?");
                 isANumber = int.TryParse(Console.ReadLine(), out userNumber);
+
             } while (isANumber == false);
 
             NumberChecker(numList, userNumber);
-
+            
             Console.WriteLine("-------------------");
 
             Console.WriteLine("All Numbers:");
             //UNCOMMENT this method to print out your numbers from arrays or lists
+            //NumberPrinter();
             NumberPrinter(numList);
             Console.WriteLine("-------------------");
 
@@ -103,64 +106,72 @@ namespace CollectionsMasterConsoleUI
             //TODO: Create a method that will remove all odd numbers from the list then print results
             Console.WriteLine("Evens Only!!");
 
-            OddKiller(numList);
-
+            EvenKiller(numList);
+            
             Console.WriteLine("------------------");
 
             //TODO: Sort the list then print results
             Console.WriteLine("Sorted Evens!!");
-            numList.Sort();
-            NumberPrinter(numList);
-
+            
             Console.WriteLine("------------------");
 
             //TODO: Convert the list to an array and store that into a variable
-            var MyArray = numList.ToArray();
+            
 
             //TODO: Clear the list
-            numList.Clear();
+            
 
             #endregion
         }
 
-        private static void ThreeKiller(int[] numbers)
+        private static void EvenKiller(List<int> numberList)
         {
-            for (int i = 0; i < numbers.Length; i++)
-            {
-                if (numbers[i] % 3 == 0)
-                {
-                    numbers[i] = 0;
-                }
-            }
-
-            NumberPrinter(numbers);
-        }
-
-        private static void OddKiller(List<int> numberList)
-        {
-            for (int i = numberList.Count - 1; i <= 0; i--)
+            for (int i = numberList.Count - 1; i < -1; i--)
             {
                 if (numberList[i] % 2 != 0)
                 {
                     numberList.Remove(numberList[i]);
                 }
             }
+            NumberPrinter(numberList);
+        }
 
-            //var evens = numberList.Where(x => x % 2 != 0);
+        private static void ThreeKiller(int[] numbers)
+        {
+            for (int i = 0; i < numbers.Length;)
+            {
+                if (numbers[i] % 3 == 0)
+                {
+                    numbers[i] = 0;
+                }
+            }
+            NumberPrinter(numbers);
+        }
 
+        private static void OddKiller(List<int> numberList)
+        {
+            for (int i = numberList.Count -1; i < -1; i--)
+            {
+                if (numberList[i] % 2 != 0)
+                {
+                    numberList.RemoveAt(i);
+                }
+            }
             NumberPrinter(numberList);
         }
 
         private static void NumberChecker(List<int> numberList, int searchNumber)
         {
-            if (numberList.Contains(searchNumber))
+          if (numberList.Contains(searchNumber))
             {
-                Console.WriteLine($"Yes the number is available.");
+                Console.WriteLine($"Yes we have the number You're looking for");
             }
             else
             {
-                Console.WriteLine($"No the number isn't available.");
+                Console.WriteLine($"These aren't the droids you're looking for");
+                Console.WriteLine($"These aren't the droids we're looking for");
             }
+
         }
 
         private static void Populater(List<int> numberList)
@@ -182,20 +193,20 @@ namespace CollectionsMasterConsoleUI
             for(int i = 0; i < numbers.Length; i++)
             {
                 Random rng = new Random();
-                numbers[i] = rng.Next(0, 50);
+                numbers [i] = rng.Next(0,50);
             }
             
 
-        }
+        }        
 
         private static void ReverseArray(int[] array)
         {
             Array.Reverse(array);
 
-            foreach(var number in array)
-            {
-                NumberPrinter(array);
-            }
+            NumberPrinter(array);
+            
+            
+            
         }
 
         /// <summary>
